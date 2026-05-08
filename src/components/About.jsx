@@ -28,11 +28,11 @@ const About = () => {
               <p className="text-gray-600 dark:text-gray-400 font-medium">Certifications</p>
             </div>
             <div className="bg-gray-50 dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700">
-              <h3 className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">15+</h3>
+              <h3 className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">5+</h3>
               <p className="text-gray-600 dark:text-gray-400 font-medium">Academic Projects</p>
             </div>
             <div className="bg-gray-50 dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700">
-              <h3 className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">5+</h3>
+              <h3 className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">2</h3>
               <p className="text-gray-600 dark:text-gray-400 font-medium">Hackathons</p>
             </div>
             <div className="bg-gray-50 dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700">
