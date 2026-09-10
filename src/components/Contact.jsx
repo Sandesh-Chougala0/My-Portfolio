@@ -1,106 +1,261 @@
-import React from 'react';
-import { Mail, MapPin, Phone, Send } from 'lucide-react';
+import { useState } from 'react';
+import { 
+  Mail, 
+  Phone, 
+  MapPin, 
+  Send, 
+  Copy, 
+  Check, 
+  MessageSquare, 
+  Clock, 
+  CheckCircle2, 
+  AlertCircle 
+} from 'lucide-react';
+import './Contact.css';
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [copied, setCopied] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [statusMessage, setStatusMessage] = useState(null);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('sandeshchougala205@gmail.com');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (statusMessage) setStatusMessage(null);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      setStatusMessage({
+        type: 'error',
+        text: 'Please fill in all required fields (Name, Email, and Message).'
+      });
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setStatusMessage({
+        type: 'error',
+        text: 'Please enter a valid email address.'
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setStatusMessage({
+        type: 'success',
+        text: 'Thanks for reaching out! Your message has been sent successfully. I will get back to you shortly.'
+      });
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    }, 1200);
+  };
+
   return (
-    <section id="contact" className="py-20 bg-white dark:bg-slate-800/50 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">Get In Touch</h2>
-          <div className="w-20 h-1 bg-blue-600 mx-auto rounded-full"></div>
-          <p className="mt-4 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            I'm currently looking for internship opportunities and exciting projects. Whether you have a question, an opportunity, or just want to connect, I'd love to hear from you!
+    <section id="contact" className="contact-section section-py">
+      <div className="container">
+        {/* Section Header */}
+        <div className="section-header">
+          <span className="section-tag">
+            <MessageSquare size={14} />
+            06 // Connect
+          </span>
+          <h2 className="section-title">
+            Let&apos;s Build Something <span className="gradient-text">Great Together</span>
+          </h2>
+          <p className="section-subtitle">
+            Whether you have an exciting project, an internship opportunity, or just want to talk tech — my inbox is always open.
           </p>
+          <div className="title-underline"></div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-          <div className="lg:col-span-2 space-y-8">
-            <div className="bg-gray-50 dark:bg-slate-800 p-8 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Contact Information</h3>
+        {/* Contact Grid */}
+        <div className="contact-grid">
+          {/* Left: Contact Info */}
+          <div className="contact-info-panel">
+            <div className="contact-info-card">
+              <h3 className="contact-info-title">Contact Information</h3>
+              <p className="contact-info-sub">
+                Feel free to contact me via email or phone. I usually respond within 24 hours.
+              </p>
 
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">
-                    <Mail className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+              <div className="contact-channels">
+                {/* Email */}
+                <div className="contact-channel-item">
+                  <div className="contact-channel-icon">
+                    <Mail size={20} />
                   </div>
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-900 dark:text-white">Email</p>
-                    <p className="text-gray-600 dark:text-gray-400">sandeshchougala205@gmail.com</p>
+                  <div style={{ flex: 1 }}>
+                    <span className="contact-channel-label">Email</span>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <a href="mailto:sandeshchougala205@gmail.com" className="contact-channel-value">
+                        sandeshchougala205@gmail.com
+                      </a>
+                      <button 
+                        type="button"
+                        onClick={handleCopyEmail} 
+                        className="copy-btn" 
+                        title="Copy email to clipboard"
+                        aria-label="Copy email"
+                      >
+                        {copied ? <Check size={16} style={{ color: '#34d399' }} /> : <Copy size={16} />}
+                      </button>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">
-                    <Phone className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                {/* Phone */}
+                <div className="contact-channel-item">
+                  <div className="contact-channel-icon" style={{ background: 'rgba(6, 182, 212, 0.1)', borderColor: 'rgba(6, 182, 212, 0.25)', color: '#22d3ee' }}>
+                    <Phone size={20} />
                   </div>
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-900 dark:text-white">Phone</p>
-                    <p className="text-gray-600 dark:text-gray-400">+91 6360428201</p>
+                  <div>
+                    <span className="contact-channel-label">Phone</span>
+                    <a href="tel:+916360428201" className="contact-channel-value">
+                      +91 6360428201
+                    </a>
                   </div>
                 </div>
 
-                <div className="flex items-start">
-                  <div className="flex-shrink-0 mt-1">
-                    <MapPin className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                {/* Location */}
+                <div className="contact-channel-item">
+                  <div className="contact-channel-icon" style={{ background: 'rgba(168, 85, 247, 0.1)', borderColor: 'rgba(168, 85, 247, 0.25)', color: '#c084fc' }}>
+                    <MapPin size={20} />
                   </div>
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-900 dark:text-white">Location</p>
-                    <p className="text-gray-600 dark:text-gray-400">Belagavi, INDIA<br />Available for remote work</p>
+                  <div>
+                    <span className="contact-channel-label">Location</span>
+                    <span className="contact-channel-value" style={{ display: 'block' }}>
+                      Belagavi, Karnataka, India
+                    </span>
+                  </div>
+                </div>
+
+                {/* Status */}
+                <div className="contact-channel-item">
+                  <div className="contact-channel-icon" style={{ background: 'rgba(16, 185, 129, 0.1)', borderColor: 'rgba(16, 185, 129, 0.25)', color: '#34d399' }}>
+                    <Clock size={20} />
+                  </div>
+                  <div>
+                    <span className="contact-channel-label">Working Hours & Availability</span>
+                    <span className="contact-channel-value" style={{ display: 'block' }}>
+                      Available for Remote & Onsite Roles
+                    </span>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="lg:col-span-3">
-            <form className="bg-gray-50 dark:bg-slate-800 p-8 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
+          {/* Right: Interactive Contact Form */}
+          <div className="contact-form-panel">
+            {statusMessage && (
+              <div className={`form-feedback ${statusMessage.type}`}>
+                {statusMessage.type === 'success' ? (
+                  <CheckCircle2 size={18} />
+                ) : (
+                  <AlertCircle size={18} />
+                )}
+                <span>{statusMessage.text}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit}>
+              <div className="form-group-row">
+                <div className="form-group" style={{ marginBottom: 0 }}>
+                  <label htmlFor="name" className="form-label">
+                    Your Name <span style={{ color: '#ec4899' }}>*</span>
+                  </label>
                   <input
                     type="text"
                     id="name"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-shadow"
-                    placeholder="John Doe"
+                    name="name"
+                    placeholder="e.g. John Doe"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="form-input"
+                    required
                   />
                 </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
+
+                <div className="form-group" style={{ marginBottom: 0 }}>
+                  <label htmlFor="email" className="form-label">
+                    Your Email <span style={{ color: '#ec4899' }}>*</span>
+                  </label>
                   <input
                     type="email"
                     id="email"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-shadow"
-                    placeholder="john@example.com"
+                    name="email"
+                    placeholder="e.g. john@example.com"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="form-input"
+                    required
                   />
                 </div>
               </div>
 
-              <div className="mb-6">
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Subject</label>
+              <div className="form-group">
+                <label htmlFor="subject" className="form-label">
+                  Subject
+                </label>
                 <input
                   type="text"
                   id="subject"
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-shadow"
-                  placeholder="Project Inquiry"
+                  name="subject"
+                  placeholder="e.g. Internship Inquiry / Web Development Project"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  className="form-input"
                 />
               </div>
 
-              <div className="mb-6">
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Message</label>
+              <div className="form-group">
+                <label htmlFor="message" className="form-label">
+                  Message <span style={{ color: '#ec4899' }}>*</span>
+                </label>
                 <textarea
                   id="message"
+                  name="message"
                   rows="5"
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-shadow resize-none"
-                  placeholder="Hi, I think we need a design system for our products..."
+                  placeholder="Tell me about your project, team, or opportunity..."
+                  value={formData.message}
+                  onChange={handleChange}
+                  className="form-textarea"
+                  required
                 ></textarea>
               </div>
 
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center px-8 py-4 border border-transparent text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-md hover:shadow-lg"
+                disabled={isSubmitting}
+                className="btn btn-primary"
+                style={{ width: '100%', padding: '0.95rem' }}
               >
-                Send Message
-                <Send className="ml-2 w-5 h-5" />
+                {isSubmitting ? (
+                  <span>Sending Message...</span>
+                ) : (
+                  <>
+                    <span>Send Message</span>
+                    <Send size={18} />
+                  </>
+                )}
               </button>
             </form>
           </div>

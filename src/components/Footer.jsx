@@ -1,47 +1,91 @@
-import React from 'react';
-import { Github, Linkedin, Twitter, Heart } from 'lucide-react';
+import { ArrowUp, Github, Linkedin, Mail, Sparkles } from 'lucide-react';
+import './Footer.css';
 
 const Footer = () => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <footer className="bg-gray-50 dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 py-12 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-        
-        <div className="mb-8 md:mb-0 text-center md:text-left">
-          <div className="font-bold text-2xl text-blue-600 dark:text-blue-400 mb-2">
-            Dev<span className="text-gray-900 dark:text-white">Portfolio</span>
+    <footer className="footer-section">
+      <div className="container">
+        <div className="footer-grid">
+          {/* Brand */}
+          <div className="footer-brand">
+            <a href="#home" className="footer-logo">
+              <span style={{ color: 'var(--cyan)' }}>&lt;</span>
+              <span>Sandesh</span>
+              <span style={{ color: 'var(--cyan)' }}>/&gt;</span>
+            </a>
+            <p className="footer-bio">
+              Software developer &amp; Computer Science student enthusiastic about crafting high-performance, beautiful web applications.
+            </p>
           </div>
-          <p className="text-gray-600 dark:text-gray-400 text-sm">
-            Building digital products, brands, and experience.
-          </p>
-        </div>
 
-        <div className="flex flex-col items-center mb-8 md:mb-0">
-          <div className="flex items-center space-x-6 mb-4">
-            <a href="#" className="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
-              <span className="sr-only">GitHub</span>
-              <Github className="w-6 h-6" />
-            </a>
-            <a href="#" className="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
-              <span className="sr-only">LinkedIn</span>
-              <Linkedin className="w-6 h-6" />
-            </a>
-            <a href="#" className="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
-              <span className="sr-only">Twitter</span>
-              <Twitter className="w-6 h-6" />
-            </a>
+          {/* Nav Links */}
+          <div>
+            <ul className="footer-links-list">
+              <li><a href="#home" className="footer-link">Home</a></li>
+              <li><a href="#about" className="footer-link">About</a></li>
+              <li><a href="#skills" className="footer-link">Skills</a></li>
+              <li><a href="#projects" className="footer-link">Projects</a></li>
+              <li><a href="#experience" className="footer-link">Experience</a></li>
+              <li><a href="#certifications" className="footer-link">Certifications</a></li>
+              <li><a href="#contact" className="footer-link">Contact</a></li>
+            </ul>
           </div>
-          <p className="text-gray-500 dark:text-gray-400 text-sm flex items-center">
-            Designed & Built with <Heart className="w-4 h-4 text-red-500 mx-1" fill="currentColor" /> by Sandesh Chougala
-          </p>
+
+          {/* Socials & Back to Top */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <a 
+              href="https://github.com/Sandesh-Chougala0" 
+              target="_blank" 
+              rel="noreferrer" 
+              className="social-link"
+              aria-label="GitHub"
+            >
+              <Github size={18} />
+            </a>
+            <a 
+              href="https://www.linkedin.com/in/sandeshchougala" 
+              target="_blank" 
+              rel="noreferrer" 
+              className="social-link"
+              aria-label="LinkedIn"
+            >
+              <Linkedin size={18} />
+            </a>
+            <a 
+              href="mailto:sandeshchougala205@gmail.com" 
+              className="social-link"
+              aria-label="Email"
+            >
+              <Mail size={18} />
+            </a>
+
+            <button 
+              type="button" 
+              onClick={scrollToTop} 
+              className="back-to-top-btn"
+              title="Scroll to top"
+            >
+              <span>Top</span>
+              <ArrowUp size={14} />
+            </button>
+          </div>
         </div>
 
-        <div className="text-center md:text-right">
-          <p className="text-gray-500 dark:text-gray-400 text-sm">
-            &copy; {new Date().getFullYear()} Sandesh Chougala.
-            <br /> All rights reserved.
-          </p>
-        </div>
+        {/* Bottom Bar */}
+        <div className="footer-bottom">
+          <div>
+            © {new Date().getFullYear()} Sandesh Chougala. All rights reserved.
+          </div>
 
+          <div className="footer-tech-note">
+            <span>Built with React &amp; Custom Pure CSS</span>
+            <Sparkles size={14} style={{ color: 'var(--cyan-light)' }} />
+          </div>
+        </div>
       </div>
     </footer>
   );

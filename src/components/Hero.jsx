@@ -1,74 +1,172 @@
-import React from 'react';
-import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { 
+  ArrowRight, 
+  Github, 
+  Linkedin, 
+  Mail, 
+  FileText, 
+  Code2, 
+  Cpu, 
+  Sparkles 
+} from 'lucide-react';
 import profileImage from '../assets/profile.jpg';
+import './Hero.css';
+
+const roles = [
+  'Full Stack Developer',
+  'React & UI Specialist',
+  'CS Engineering Student',
+  'Clean Code Advocate'
+];
 
 const Hero = () => {
+  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+  const [fadeState, setFadeState] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFadeState(false);
+      setTimeout(() => {
+        setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
+        setFadeState(true);
+      }, 250);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section id="home" className="pt-24 pb-12 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32 flex items-center min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-12">
-          
-          <div className="flex-1 text-center md:text-left space-y-8">
-            <div className="space-y-4">
-              <h2 className="text-blue-600 dark:text-blue-400 font-semibold tracking-wide uppercase">
-                Hello, I'm
-              </h2>
-              <h1 className="text-5xl md:text-7xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-                Sandesh Chougala
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-light">
-                Computer Science Student & Developer
-              </p>
+    <section id="home" className="hero-section">
+      <div className="container">
+        <div className="hero-grid">
+          {/* Left Column: Details */}
+          <div className="hero-content">
+            <div className="hero-status-pill">
+              <span className="status-dot-ping"></span>
+              <span>Available for Summer Internships &amp; Roles</span>
             </div>
-            
-            <p className="text-gray-600 dark:text-gray-400 max-w-lg mx-auto md:mx-0 text-lg">
-              I'm a passionate student diving deep into software development. I love building web applications, exploring new technologies, and constantly learning to solve real-world problems.
+
+            <h1 className="hero-title">
+              Crafting modern digital <br />
+              <span className="gradient-text">web experiences.</span>
+            </h1>
+
+            <div className="hero-subtitle">
+              <span>I&apos;m Sandesh Chougala —</span>
+              <span 
+                className="role-highlight" 
+                style={{ 
+                  opacity: fadeState ? 1 : 0, 
+                  transform: fadeState ? 'translateY(0)' : 'translateY(6px)',
+                  transition: 'opacity 0.3s ease, transform 0.3s ease' 
+                }}
+              >
+                {roles[currentRoleIndex]}
+              </span>
+            </div>
+
+            <p className="hero-description">
+              Passionate computer science student specialized in designing and building high-performance, accessible, and responsive web applications with modern React, JavaScript, and scalable backend services.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
-              <a
-                href="#projects"
-                className="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl w-full sm:w-auto"
-              >
-                View My Work
-                <ArrowRight className="ml-2 w-5 h-5" />
+            <div className="hero-cta-group">
+              <a href="#projects" className="btn btn-primary">
+                <span>View Projects</span>
+                <ArrowRight size={18} />
               </a>
-              <a
-                href="#contact"
-                className="inline-flex items-center justify-center px-8 py-3 border-2 border-gray-300 dark:border-slate-700 text-base font-medium rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors w-full sm:w-auto"
+
+              <a href="#contact" className="btn btn-secondary">
+                <span>Contact Me</span>
+              </a>
+
+              <a 
+                href="/resume.pdf" 
+                download 
+                target="_blank" 
+                rel="noreferrer" 
+                className="btn btn-secondary"
+                title="Download Sandesh Chougala Resume"
               >
-                Contact Me
+                <FileText size={16} />
+                <span>Resume</span>
               </a>
             </div>
 
-            <div className="flex items-center justify-center md:justify-start space-x-6 pt-4">
-              <a href="#" className="text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors">
-                <span className="sr-only">GitHub</span>
-                <Github className="w-7 h-7" />
+            <div className="hero-socials">
+              <a 
+                href="https://github.com/Sandesh-Chougala0" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="social-link"
+                aria-label="GitHub Profile"
+              >
+                <Github size={20} />
               </a>
-              <a href="#" className="text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors">
-                <span className="sr-only">LinkedIn</span>
-                <Linkedin className="w-7 h-7" />
+              <a 
+                href="https://www.linkedin.com/in/sandeshchougala" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="social-link"
+                aria-label="LinkedIn Profile"
+              >
+                <Linkedin size={20} />
               </a>
-              <a href="#" className="text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors">
-                <span className="sr-only">Email</span>
-                <Mail className="w-7 h-7" />
+              <a 
+                href="mailto:sandeshchougala205@gmail.com" 
+                className="social-link"
+                aria-label="Send an Email"
+              >
+                <Mail size={20} />
               </a>
             </div>
           </div>
 
-          <div className="flex-1 flex justify-center w-full max-w-md md:max-w-none">
-            <div className="relative">
-              {/* Decorative blob behind image */}
-              <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full opacity-20 dark:opacity-30 blur-2xl animate-pulse"></div>
-              <img
-                className="relative rounded-full w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 object-cover border-4 border-white dark:border-slate-800 shadow-2xl"
-                src={profileImage}
-                alt="Sandesh Chougala"
-              />
-            </div>
-          </div>
+          {/* Right Column: Visual Photo & Floating Badges */}
+          <div className="hero-visual">
+            <div className="photo-glow-outer"></div>
 
+            <div className="photo-wrapper">
+              <div className="photo-inner">
+                <img 
+                  src={profileImage} 
+                  alt="Sandesh Chougala" 
+                  className="photo-img" 
+                />
+              </div>
+            </div>
+
+            {/* Floating Badges */}
+            <div className="floating-badge badge-top-left">
+              <div className="badge-icon" style={{ background: 'rgba(6, 182, 212, 0.15)', color: '#22d3ee' }}>
+                <Code2 size={20} />
+              </div>
+              <div>
+                <span className="badge-text-title">React &amp; Frontend</span>
+                <span className="badge-text-subtitle">Pixel-Perfect UI</span>
+              </div>
+            </div>
+
+            <div className="floating-badge badge-bottom-right">
+              <div className="badge-icon" style={{ background: 'rgba(99, 102, 241, 0.15)', color: '#818cf8' }}>
+                <Cpu size={20} />
+              </div>
+              <div>
+                <span className="badge-text-title">CS Engineering</span>
+                <span className="badge-text-subtitle">Core Algorithms</span>
+              </div>
+            </div>
+
+            <div className="floating-badge badge-bottom-left">
+              <div className="badge-icon" style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#34d399' }}>
+                <Sparkles size={18} />
+              </div>
+              <div>
+                <span className="badge-text-title">Full Stack Ready</span>
+                <span className="badge-text-subtitle">MERN &amp; APIs</span>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </section>
